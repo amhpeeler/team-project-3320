@@ -20,7 +20,7 @@ public class Sponsor extends User {
 	 * 
 	 * @param title
 	 */
-	public void submitProject(int title) {
+	public void submitProject(String title) {
 		// TODO - implement Sponsor.submitProject
 		throw new UnsupportedOperationException();
 	}
@@ -30,7 +30,7 @@ public class Sponsor extends User {
 	 * @param user
 	 * @param passwd
 	 */
-	public void login(int user, int passwd) {
+	public void login(String user, String passwd) {
 		// TODO - implement Sponsor.login
 		throw new UnsupportedOperationException();
 	}

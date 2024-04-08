@@ -15,9 +15,9 @@ public class Team {
 
 	/**
 	 * 
-	 * @param String
+	 * @param request
 	 */
-	public String submitRequest(int String) {
+	public String submitRequest(String request) {
 		// TODO - implement Team.submitRequest
 		throw new UnsupportedOperationException();
 	}

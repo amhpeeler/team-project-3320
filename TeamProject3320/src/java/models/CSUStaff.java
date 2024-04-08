@@ -17,7 +17,7 @@ public class CSUStaff extends User {
 	 * 
 	 * @param title
 	 */
-	public boolean approveProject(int title) {
+	public boolean approveProject(String title) {
 		// TODO - implement CSUStaff.approveProject
 		throw new UnsupportedOperationException();
 	}
@@ -27,7 +27,7 @@ public class CSUStaff extends User {
 	 * @param email
 	 * @param team
 	 */
-	public void assignMentor(int email, int team) {
+	public void assignMentor(String email, Team team) {
 		// TODO - implement CSUStaff.assignMentor
 		throw new UnsupportedOperationException();
 	}

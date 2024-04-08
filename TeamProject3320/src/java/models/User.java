@@ -19,7 +19,7 @@ public class User {
 	 * @param user
 	 * @param passwd
 	 */
-	public void login(int user, int passwd) {
+	public void login(String user, String passwd) {
 		// TODO - implement User.login
 		throw new UnsupportedOperationException();
 	}
@@ -28,7 +28,7 @@ public class User {
 	 * 
 	 * @param email
 	 */
-	public void register(int email) {
+	public void register(String email) {
 		// TODO - implement User.register
 		throw new UnsupportedOperationException();
 	}

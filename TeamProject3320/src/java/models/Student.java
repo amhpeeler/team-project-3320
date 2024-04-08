@@ -20,7 +20,7 @@ public class Student extends User {
 	 * 
 	 * @param title
 	 */
-	public void applyForProject(int title) {
+	public void applyForProject(String title) {
 		// TODO - implement Student.applyForProject
 		throw new UnsupportedOperationException();
 	}
@@ -61,18 +61,18 @@ public class Student extends User {
 
 	/**
 	 * 
-	 * @param Project
+	 * @param project
 	 */
-	public void navigateToProject(int Project) {
+	public void navigateToProject(Project project) {
 		// TODO - implement Student.navigateToProject
 		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * 
-	 * @param String
+	 * @param request
 	 */
-	public void submitRequest(int String) {
+	public void submitRequest(String request) {
 		// TODO - implement Student.submitRequest
 		throw new UnsupportedOperationException();
 	}

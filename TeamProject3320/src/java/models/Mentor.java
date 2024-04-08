@@ -22,7 +22,7 @@ public class Mentor extends CSUStaff {
 	 * 
 	 * @param students
 	 */
-	public void createTeam(int students) {
+	public void createTeam(Student[] students) {
 		// TODO - implement Mentor.createTeam
 		throw new UnsupportedOperationException();
 	}
@@ -30,8 +30,9 @@ public class Mentor extends CSUStaff {
 	/**
 	 * 
 	 * @param title
+         * @param files
 	 */
-	public void uploadDeliverables(int title) {
+	public void uploadDeliverables(String title, File files) {
 		// TODO - implement Mentor.uploadDeliverables
 		throw new UnsupportedOperationException();
 	}
@@ -43,10 +44,10 @@ public class Mentor extends CSUStaff {
 
 	/**
 	 * 
-	 * @param Student
-	 * @param Project
+	 * @param student
+	 * @param project
 	 */
-	public void issuesInvitation(int Student, int Project) {
+	public void issuesInvitation(Student student, Project project) {
 		// TODO - implement Mentor.issuesInvitation
 		throw new UnsupportedOperationException();
 	}
