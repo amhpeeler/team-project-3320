@@ -1,0 +1,35 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package models;
+
+/**
+ *
+ * @author annamariepeeler + visual paradigm
+ */
+public class CSUStaff extends User {
+
+	private String fname;
+	private String lname;
+
+	/**
+	 * 
+	 * @param title
+	 */
+	public boolean approveProject(int title) {
+		// TODO - implement CSUStaff.approveProject
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param email
+	 * @param team
+	 */
+	public void assignMentor(int email, int team) {
+		// TODO - implement CSUStaff.assignMentor
+		throw new UnsupportedOperationException();
+	}
+
+}
