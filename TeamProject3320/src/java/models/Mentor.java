@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.io.File;
+
 /**
  *
  * @author annamariepeeler + visual paradigm
