@@ -16,6 +16,7 @@ public class CSUStaff extends User {
 	/**
 	 * 
 	 * @param title
+         * @return approved
 	 */
 	public boolean approveProject(String title) {
 		// TODO - implement CSUStaff.approveProject
