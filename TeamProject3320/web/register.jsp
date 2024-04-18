@@ -18,6 +18,7 @@
 </style>
 </head>
 <body>
+    <form id="userForm" action="#" method="post">
     <label for="userType">Select User Type:</label>
     <select id="userType" onchange="showFields()">
         <option value="sponsor">Sponsor</option>
@@ -63,7 +64,12 @@
         <label for="studentFName">Student Name:</label>
         <input type="text" id="studentFName" name="studentFName" required><br>
         <label for="studentYear">Student Academic Year:</label>
-        <input type="text" id="studentYear" name="studentYear" required><br>
+            <select id="studentYear" name="studentYear" required>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+            </select><br>
         <label for="studentMajor">Student Major:</label>
         <input type="text" id="studentMajor" name="studentMajor" required><br>
         <label for="studentMinor">Student Minor:</label>
@@ -91,7 +97,9 @@
         <input type="text" id="staffDepartment" name="staffDepartment"><br>
 
     </div>
-
+    <button type="submit">Submit</button>
+    </form>
+    
     <script>
         function showFields() {
             var userType = document.getElementById("userType").value;
