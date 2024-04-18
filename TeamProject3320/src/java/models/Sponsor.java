@@ -30,7 +30,7 @@ public class Sponsor extends User {
 	 * @param user
 	 * @param passwd
 	 */
-	public void login(String user, String passwd) {
+	public boolean login(String user, String passwd) {
 		// TODO - implement Sponsor.login
 		throw new UnsupportedOperationException();
 	}
