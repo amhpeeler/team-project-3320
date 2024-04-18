@@ -20,7 +20,7 @@
             <div/>
             <div>
                 Password:
-                <input type="text" name="password"/><br>
+                <input type="password" name="password"/><br>
                 <input type="submit" value="login">
             <div/>
         </form>
