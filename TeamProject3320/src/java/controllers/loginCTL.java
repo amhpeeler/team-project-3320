@@ -85,7 +85,7 @@ public class loginCTL extends HttpServlet {
         User user = new User();
         boolean validate = user.login(username, password);
         if (validate){
-            response.sendRedirect("index.html");
+            response.sendRedirect("test.html");
         }else{
             response.sendRedirect("login.jsp");
         }

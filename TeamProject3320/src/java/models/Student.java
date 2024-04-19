@@ -4,6 +4,10 @@
  */
 package models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import utils.OracleConnection;
+
 /**
  *
  * @author annamariepeeler + VP
@@ -15,6 +19,9 @@ public class Student extends User {
 	private String lname;
 	private String studentID;
 	private String phoneNumber;
+        
+        private Connection conn = null;
+
 
 	/**
 	 * 
@@ -75,6 +82,48 @@ public class Student extends User {
 	public void submitRequest(String request) {
 		// TODO - implement Student.submitRequest
 		throw new UnsupportedOperationException();
+	}
+        
+         /**
+	 * @param username
+         * @param skills
+         * @param year
+         * @param major
+         * @param minor
+         * @param school
+         * @param past
+         * @return validated 
+         * */
+	public boolean register(String username, String skills, String year, String major, String minor, String school, String past) {
+                //promo
+		boolean validated = false;
+                try{
+                    conn = OracleConnection.getConnection();
+                    String sql = "INSERT INTO Student(StudentID, skills, academicYear, major, minor, past, school) VALUES(?,?,?,?,?,?,?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, username);
+                    stmt.setString(2, skills);
+                    stmt.setString(3, year);
+                    stmt.setString(4, major);
+                    stmt.setString(5, minor);
+                    stmt.setString(6, school);
+                    stmt.setString(7, past);
+                    int rset = stmt.executeUpdate();
+                    //check if data inserted
+                    if (rset == 1){
+                        //data inserted
+                        validated = true;
+                    } else {
+                        validated = false;
+                    }
+                    
+                }catch(Exception exp){
+                    exp.printStackTrace();
+                }finally{
+                    conn = null;
+                    OracleConnection.closeConnection();
+                }
+                return validated;
 	}
 
 }

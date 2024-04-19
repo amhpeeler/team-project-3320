@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import models.CSUStaff;
+import models.Sponsor;
+import models.Student;
 import models.User;
 
 /**
@@ -72,17 +75,88 @@ public class registerCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username, password;
-        username = request.getParameter("username");
-        password = request.getParameter("password");
         
-        User user = new User();
-        boolean validate = user.login(username, password);
-        if (validate){
-            response.sendRedirect("index.html");
-        }else{
-            response.sendRedirect("login.jsp");
+
+        
+        String username, password, type, fname, lname, phone, email;
+        type = request.getParameter("userTypeHidden");
+        System.out.println("doPost");
+        if(type.equals("sponsor")){
+            System.out.println("Sponsor");
+            username = request.getParameter("sponsorUName");
+            System.out.println(username);
+            password = request.getParameter("sponsorPassword");
+            System.out.println(password);
+            fname = request.getParameter("sponsorFName");
+            System.out.println(fname);
+            lname = request.getParameter("sponsorLName");
+            System.out.println(lname);
+            phone = request.getParameter("sponsorPhone");
+            System.out.println(phone);
+            email = request.getParameter("sponsorEmail");
+            System.out.println(email);
+            User user = new User();
+            boolean validate = user.register(fname, lname, username, password, phone, email, type);
+            System.out.println(validate);
+            if (validate){
+                String company = request.getParameter("sponsorCompany");
+                String title = request.getParameter("sponsorTitle");
+                Sponsor s = new Sponsor();
+                boolean val = s.register(username, company, title);
+                if(val) {
+                    response.sendRedirect("login.jsp");
+                }
+            }else{
+                response.sendRedirect("index.html");
+            }
+             
+        } else if (type.equals("staff")) {
+            username = request.getParameter("staffUName");
+            password = request.getParameter("staffPassword");
+            fname = request.getParameter("staffFName");
+            lname = request.getParameter("staffLName");
+            phone = request.getParameter("staffPhone");
+            email = request.getParameter("staffEmail");
+            User user = new User();
+            boolean validate = user.register(fname, lname, username, password, phone, email, type);
+            if (validate){
+                String department = request.getParameter("staffDepartment");
+                CSUStaff s = new CSUStaff();
+                boolean val = s.register(username, department);
+                if(val) {
+                    response.sendRedirect("login.jsp");
+                }
+            }else{
+                response.sendRedirect("index.html");
+            }
+        } else if(type.equals("student")){
+            username = request.getParameter("studentUName");
+            password = request.getParameter("studentPassword");
+            fname = request.getParameter("studentFName");
+            lname = request.getParameter("studentLName");
+            phone = request.getParameter("studentPhone");
+            email = request.getParameter("studentEmail");
+            User user = new User();
+            boolean validate = user.register(fname, lname, username, password, phone, email, type);
+            if (validate){
+                String skills = request.getParameter("studentSkills");
+                String year = request.getParameter("studentYear");
+                String major = request.getParameter("studentMajor");
+                String minor = request.getParameter("studentMinor");
+                String school = request.getParameter("studentSchool");
+                String past = request.getParameter("studentPast");
+                Student s = new Student();
+                boolean val = s.register(username, skills, year, major, minor, school, past);
+                if(val) {
+                    response.sendRedirect("login.jsp");
+                }
+            }else{
+                response.sendRedirect("index.html");
+            }
+        }else { //none type
+            
         }
+        
     }
 
     /**

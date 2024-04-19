@@ -59,28 +59,42 @@ public class User implements Serializable{
          * @return validated 
          * */
 	public boolean register(String fname, String lname, String uname,
-                String passwd, String company, String phone, String email, String type) {
+                String passwd, String phone, String email, String type) {
                 //promo
 		boolean validated = false;
                 try{
                     conn = OracleConnection.getConnection();
                     String sql = "INSERT INTO Person(ID, password, type, fname, lname, phoneNumber, "
                             + "emailAddress) VALUES(?,?,?,?,?,?,?)";
+                    String t = "Error";
+                    if(type.equals("Student")){
+                        t = "S";
+                    } else if (type.equals("Staff")) {
+                        t = "C";
+                    } else if (type.equals("Sponsor")) {
+                        t = "X";
+                    } else {
+                        //error
+                    }
+                                        
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setString(1, uname);
                     stmt.setString(2, passwd);
-                    stmt.setString(3, type);
+                    stmt.setString(3, t);
                     stmt.setString(4, fname);
                     stmt.setString(5, lname);
                     stmt.setString(6, phone);
                     stmt.setString(7, email);
-                    ResultSet rs = stmt.executeQuery();
+                    int rset = stmt.executeUpdate();
                     //check if data inserted
+                    if (rset == 1){
+                        //data inserted
+                        validated = true;
+                    } else {
+                        validated = false;
+                    }
                     
-                    if (type.equals("X")){
-                        Sponsor s = new Sponsor();
-                        s.register(uname, company, type);
-                    } //add others
+
                 }catch(Exception exp){
                     exp.printStackTrace();
                 }finally{
@@ -89,5 +103,6 @@ public class User implements Serializable{
                 }
                 return validated;
 	}
+        
 
 }

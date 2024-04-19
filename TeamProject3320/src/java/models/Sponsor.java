@@ -44,16 +44,21 @@ public class Sponsor extends User {
 		boolean validated = false;
                 try{
                     conn = OracleConnection.getConnection();
-                    String sql = "INSERT INTO Sponsor(ID, company, title) VALUES(?,?,?)";
+                    String sql = "INSERT INTO Sponsor(SponsorID, company, title) VALUES(?,?,?)";
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setString(1, uname);
                     stmt.setString(2, company);
                     stmt.setString(3, title);
 
-                    ResultSet rs = stmt.executeQuery();
-                    if(rs.next()){
+                    int rset = stmt.executeUpdate();
+                    //check if data inserted
+                    if (rset == 1){
+                        //data inserted
                         validated = true;
+                    } else {
+                        validated = false;
                     }
+                    
                 }catch(Exception exp){
                     exp.printStackTrace();
                 }finally{
