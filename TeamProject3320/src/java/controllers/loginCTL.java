@@ -93,7 +93,18 @@ public class loginCTL extends HttpServlet {
         System.out.println(type);
         session.setAttribute("type", type);
         if (validate){
-            response.sendRedirect("mentorview.jsp");
+            if(type.equalsIgnoreCase("staff")){
+                response.sendRedirect("mentorview.jsp");
+            } else if (type.equalsIgnoreCase("student")) {
+                //direct to student view
+                response.sendRedirect("test.html");
+            }  else if (type.equalsIgnoreCase("sponsor")) {
+                //direct to student view
+                response.sendRedirect("sponsorview.jsp");
+            } else {
+                //error
+                response.sendRedirect("test.html");
+            }
         }else{
             response.sendRedirect("login.jsp");
         }
