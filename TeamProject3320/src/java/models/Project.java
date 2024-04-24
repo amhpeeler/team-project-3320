@@ -211,7 +211,7 @@ public class Project {
                     proj.setId(rs.getInt("projectId"));
                     proj.setTitle(rs.getString("title"));
                     proj.setType(rs.getString("type"));
-                    proj.setSponsorCompany(rs.getString("sponsorCompany"));
+                    proj.setSponsorCompany(rs.getString("sponsor"));
                     proj.setContacts(rs.getString(5));
                     proj.setAcademicYear(rs.getString(6));
                     proj.setSkillsRequested(rs.getString(7));
