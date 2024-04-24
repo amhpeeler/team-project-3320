@@ -73,10 +73,16 @@ public class createProjectCTL extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Project proj = new Project();
-        proj.createProject(request.getParameter("title"), request.getParameter("type"), 
+        boolean created = proj.createProject(request.getParameter("title"), request.getParameter("type"), 
                 request.getParameter("sponsor"), request.getParameter("contacts"), request.getParameter("skills"),
                 request.getParameter("disciplines"), Integer.parseInt(request.getParameter("numOfStudents")), 
                 request.getParameter("description"), request.getParameter("deliverables"));
+        if(created){
+            response.sendRedirect("sponsorview.jsp");
+            
+        }else{
+            response.sendRedirect("index.html");
+        }
     }
 
     /**

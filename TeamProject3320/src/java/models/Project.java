@@ -26,36 +26,43 @@ public class Project {
 	private String deliverables;
 	private int numOfTeams = 1;
         
-        private static Connection conn = null;
-        private int projectID = 9000;//will need to substitute with the way we decide to handle IDs
+  private static Connection conn = null;
+  private int projectID = 9000;//will need to substitute with the way we decide to handle IDs
+
         
         //might need to change "type" datatype as it is defined in DB as a char, setChar() is not a method in PreparedStatement
-	public void createProject(String title, String type, String sponsor, String contacts, String skillsRequested, String disciplines, int numOfStudents, String description, String deliverables) {
+	public boolean createProject(String title, String type, String sponsor, String contacts, String skillsRequested, String disciplines, int numOfStudents, String description, String deliverables) {
 		// TODO - implement Project.createProject
 		//throw new UnsupportedOperationException();
+                boolean created = false;
                 try{
                     conn = OracleConnection.getConnection();
-                    String sql = "INSERT INTO PROJECT(projectID, title, type, sponsor, contacts, skillsRequested, "
-                            + "disciplines, numOfStudents, description, deliverablesToSubmit, submittedDeliverables, reviewedBy)"
-                            + "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, null)";
+                    String sql = "INSERT INTO PROJECT(title, type, sponsor, contacts, skillsRequested, "
+                            + "disciplines, numOfStudents, description, deliverablesToSubmit, submittedDeliverables, reviewedBy, mentor)"
+                            + "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, null, ?, ?)";
                     PreparedStatement stmt = conn.prepareStatement(sql);
-                    stmt.setInt(1, projectID);
-                    stmt.setString(2, title);
-                    stmt.setString(3, type);
-                    stmt.setString(4, sponsor);
-                    stmt.setObject(5, contacts);
-                    stmt.setObject(6, skillsRequested);
-                    stmt.setObject(7, disciplines);
-                    stmt.setInt(8, numOfStudents);
-                    stmt.setString(9, description);
-                    stmt.setObject(10, deliverables);
+                    stmt.setString(1, title);
+                    stmt.setString(2, type);
+                    stmt.setString(3, sponsor);//must be a sponsor already in the database
+                    stmt.setString(4, contacts);
+                    stmt.setString(5, skillsRequested);
+                    stmt.setString(6, disciplines);
+                    stmt.setInt(7, numOfStudents);
+                    stmt.setString(8, description);
+                    stmt.setString(9, deliverables);
+                    stmt.setString(10, "null");
+                    stmt.setString(11, "null");
+                    int rset = stmt.executeUpdate();
+                    if(rset == 1){
+                        created = true;
+                    }
                 }catch(Exception exp){
                     exp.printStackTrace();
                 }finally{
                     conn = null;
                     OracleConnection.closeConnection();
-                    projectID += 1;//useless since we create a new instance of Project during a CTL
                 }
+                return created;
 	}
         
         public String getTitle() {
@@ -107,10 +114,10 @@ public class Project {
             this.title = t;
         }
         
-	public void viewProjectDetails() {
-		// TODO - implement Project.viewProjectDetails
-		throw new UnsupportedOperationException();
-	}
+	      public void viewProjectDetails() {
+		        // TODO - implement Project.viewProjectDetails
+		        throw new UnsupportedOperationException();
+	      }
         
         public static List<Project> getNewProjects() {
             List<Project> projects = new ArrayList<Project>();
@@ -214,5 +221,4 @@ public class Project {
         }
         return projects;
     }
-
 }
