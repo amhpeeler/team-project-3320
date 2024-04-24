@@ -11,7 +11,7 @@ import utils.OracleConnection;
 
 /**
  *
- * @author annamariepeeler + VP
+ * @author annamariepeeler + VP + josh
  */
 public class Project {
 
@@ -181,5 +181,38 @@ public class Project {
             }
             return projects;
         }
+        
+        public List<Project> getAllProjects() {
+        List<Project> projects = new ArrayList<Project>();
+        try{
+            conn = OracleConnection.getConnection();
+            String sql = "SELECT * FROM Project";
+            //Wrap sql with statement
+            Statement stmt = conn.createStatement();
+            //run sql
+            ResultSet rs = stmt.executeQuery(sql);
+            //processed data in result set
+            while(rs.next()){
+                Project proj = new Project();
+                proj.setTitle(rs.getString(1));
+                proj.setType(rs.getString(2));
+                proj.setSponsorCompany(rs.getString(3));
+                proj.setContacts(rs.getString(4));
+                proj.setAcademicYear(rs.getString(5));
+                proj.setSkillsRequested(rs.getString(6));
+                proj.setDisciplines(rs.getString(7));
+                proj.setNumOfStudents(rs.getInt(8));
+                proj.setDeliverables(rs.getString(9));
+                //add to list
+                projects.add(proj);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        } finally{
+            conn = null;
+            OracleConnection.closeConnection();
+        }
+        return projects;
+    }
 
 }

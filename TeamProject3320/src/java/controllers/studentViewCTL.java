@@ -4,27 +4,24 @@
  */
 package controllers;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-import models.User;
+import java.util.List;
+import models.Project;
 
 /**
  *
- * @author celso
+ * @author joshroca
  */
-@WebServlet(name = "loginCTL", urlPatterns = {"/loginCTL"})
-public class loginCTL extends HttpServlet {
+@WebServlet(name = "studentViewCTL", urlPatterns = {"/studentViewCTL"})
+public class studentViewCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class loginCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginCTL</title>");            
+            out.println("<title>Servlet studentViewCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet studentViewCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +61,12 @@ public class loginCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        Project proj = new Project();
+        List<Project> projects = proj.getAllProjects();
+        request.setAttribute("projects", proj);
+        RequestDispatcher rd = request.getRequestDispatcher("nav.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -78,36 +80,7 @@ public class loginCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        HttpSession session = request.getSession();
-        
-        String username, password;
-        username = request.getParameter("username");
-        password = request.getParameter("password");
-        session.setAttribute("user", username);
-       
-        
-        User user = new User();
-        boolean validate = user.login(username, password);
-        String type = user.getType(username);
-        System.out.println(type);
-        session.setAttribute("type", type);
-        if (validate){
-            if(type.equalsIgnoreCase("staff")){
-                response.sendRedirect("mentorview.jsp");
-            } else if (type.equalsIgnoreCase("student")) {
-                //direct to student view
-                response.sendRedirect("studentview.jsp");
-            }  else if (type.equalsIgnoreCase("sponsor")) {
-                //direct to student view
-                response.sendRedirect("sponsorview.jsp");
-            } else {
-                //error
-                response.sendRedirect("test.html");
-            }
-        }else{
-            response.sendRedirect("login.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**

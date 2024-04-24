@@ -12,7 +12,7 @@
         <title>Mentor</title>
     </head>
     <body>
-        <h1>To Be Reviewed:</h1>
+        <h1>To Be Reviewed:</h1>s
             <tbody>
                 <c:forEach items="${unreviewed}" var="uproj">
                     <tr>
