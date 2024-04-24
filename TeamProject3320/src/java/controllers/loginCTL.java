@@ -85,7 +85,8 @@ public class loginCTL extends HttpServlet {
         username = request.getParameter("username");
         password = request.getParameter("password");
         session.setAttribute("user", username);
-       
+        String mentorID = (String) session.getAttribute("user");
+        System.out.println(mentorID);
         
         User user = new User();
         boolean validate = user.login(username, password);
@@ -94,7 +95,7 @@ public class loginCTL extends HttpServlet {
         session.setAttribute("type", type);
         if (validate){
             if(type.equalsIgnoreCase("staff")){
-                response.sendRedirect("mentorview.jsp");
+                response.sendRedirect("mentorViewCTL");
             } else if (type.equalsIgnoreCase("student")) {
                 //direct to student view
                 response.sendRedirect("studentview.jsp");
