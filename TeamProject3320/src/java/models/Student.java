@@ -20,17 +20,34 @@ public class Student extends User {
 	private String studentID;
 	private String phoneNumber;
         
+        
+        
         private Connection conn = null;
 
 
 	/**
 	 * 
-	 * @param title
+	 * @param studentID
+         * @param projectID
+         * @param comment
 	 */
-	public void applyForProject(String title) {
-		// TODO - implement Student.applyForProject
-		throw new UnsupportedOperationException();
-	}
+	public void applyForProject(String studentID, String projectID, String comment) {
+            PreparedStatement stmt = null;
+            try {
+                conn = OracleConnection.getConnection();
+                String sql = "INSERT INTO Application (studentID, projectID, comments) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, studentID);
+                stmt.setString(2, projectID);
+                stmt.setString(3, comment);
+                stmt.executeUpdate();
+            }catch(Exception exp){
+                    exp.printStackTrace();
+                }finally{
+                    conn = null;
+                    OracleConnection.closeConnection();
+                }           
+}
 
 	public void viewContsnt() {
 		// TODO - implement Student.viewContsnt
