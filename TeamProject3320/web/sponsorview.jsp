@@ -53,13 +53,14 @@
                         <input type ="text" name="deliverables"/><br>
                     </div>
                     <div>
-                        <input type="button" value="Submit">
+                        <input type="submit" value="Submit">
                     </div>
+                    
                 </form>
             </div>
         </section>
         <section>
-            <h1>View Requested Projects</h1>
+            <h1>View Requested Projects?</h1>
             <div>
                 
             </div>
