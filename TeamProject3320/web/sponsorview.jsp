@@ -10,11 +10,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sponsor DashBoard</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
         <section>
             <h1>Create a Project!</h1>
-            <div>
+            <div class="heading_container">
                 <form action="createProjectCTL" method="post">
                     <div>
                         Title:
