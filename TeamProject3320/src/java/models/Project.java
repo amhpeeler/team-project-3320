@@ -15,6 +15,7 @@ import utils.OracleConnection;
  */
 public class Project {
 
+        private int id;
         private String title;
 	private String type;
 	private String sponsorCompany;
@@ -61,8 +62,17 @@ public class Project {
         public String getTitle() {
             return title;
         }
+        public int getId() {
+            return id;
+        }
+        public String getType() {
+            return type;
+        }
         private void setType(String type) {
             this.type = type;
+        }
+        private void setId(int id) {
+            this.id = id;
         }
 
         private void setSponsorCompany(String sponsorCompany) {
@@ -124,6 +134,7 @@ public class Project {
                 //processed data in result set
                 while(rs.next()){
                     Project proj = new Project();
+                    proj.setId(rs.getInt(1));
                     proj.setTitle(rs.getString(2));
                     proj.setType(rs.getString(3));
                     proj.setSponsorCompany(rs.getString(4));
@@ -160,6 +171,7 @@ public class Project {
                 //processed data in result set
                 while(rs.next()){
                     Project proj = new Project();
+                    proj.setId(rs.getInt(1));
                     proj.setTitle(rs.getString(2));
                     proj.setType(rs.getString(3));
                     proj.setSponsorCompany(rs.getString(4));
@@ -180,6 +192,41 @@ public class Project {
                 OracleConnection.closeConnection();
             }
             return projects;
+        }
+        
+        public static Project getProjectById(int id){
+            Project proj = new Project();
+            try{
+      
+                conn = OracleConnection.getConnection();
+                String sql = "SELECT * FROM Project where projectID=?";
+                //Wrap sql with statement
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+
+                //run sql
+                ResultSet rs = stmt.executeQuery();
+                //processed data in result set
+                if(rs.next()){
+                    proj.setId(rs.getInt("projectId"));
+                    proj.setTitle(rs.getString("title"));
+                    proj.setType(rs.getString("type"));
+                    proj.setSponsorCompany(rs.getString("sponsorCompany"));
+                    proj.setContacts(rs.getString(5));
+                    proj.setAcademicYear(rs.getString(6));
+                    proj.setSkillsRequested(rs.getString(7));
+                    proj.setDisciplines(rs.getString(8));
+                    proj.setNumOfStudents((rs.getInt(9)));
+                    proj.setDeliverables(rs.getString(10));
+                }
+            
+            }catch(Exception e){
+                e.printStackTrace();
+            } finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return proj;
         }
 
 }

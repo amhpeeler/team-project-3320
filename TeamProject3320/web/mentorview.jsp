@@ -20,7 +20,7 @@
         <tbody>
             <c:forEach items="${unreviewed}" var="uproj">
                 <tr>
-                    <td><c:out value="${uproj.title}" /></td>
+                    <td><a href="projectDetails?projectId=${uproj.id}">${uproj.title}</a></td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -31,7 +31,7 @@
         <tbody>
             <c:forEach items="${mentored}" var="ment">
                 <tr>
-                    <td><c:out value="${ment.title}" /></td>
+                    <td><a href="projectDetails?projectId=${ment.id}">${ment.title}</a></td>
                 </tr>
             </c:forEach>
         </tbody>
