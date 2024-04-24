@@ -26,5 +26,12 @@
             </tbody>
             
         </table>
+        <div>
+            <nav>
+                <div >
+                    <a href="studentProjectsCTL">Student Projects</a>
+                </div>
+            </nav>
+        </div>
     </body>
 </html>
