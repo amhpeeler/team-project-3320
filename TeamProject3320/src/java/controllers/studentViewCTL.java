@@ -64,8 +64,8 @@ public class studentViewCTL extends HttpServlet {
         //processRequest(request, response);
         Project proj = new Project();
         List<Project> projects = proj.getAllProjects();
-        request.setAttribute("projects", proj);
-        RequestDispatcher rd = request.getRequestDispatcher("nav.jsp");
+        request.setAttribute("projects", projects);
+        RequestDispatcher rd = request.getRequestDispatcher("studentview.jsp");
         rd.forward(request, response);
     }
 
