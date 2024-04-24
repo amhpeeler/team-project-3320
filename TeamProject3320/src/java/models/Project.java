@@ -75,6 +75,48 @@ public class Project {
         public String getType() {
             return type;
         }
+
+        public String getSponsorCompany() {
+            return sponsorCompany;
+        }
+
+        public String getContacts() {
+            return contacts;
+        }
+
+        public String getAcademicYear() {
+            return academicYear;
+        }
+
+        public String getSkillsRequested() {
+            return skillsRequested;
+        }
+
+        public String getDisciplines() {
+            return disciplines;
+        }
+
+        public int getNumOfStudents() {
+            return numOfStudents;
+        }
+
+        public String getDeliverables() {
+            return deliverables;
+        }
+
+        public int getNumOfTeams() {
+            return numOfTeams;
+        }
+
+        public static Connection getConn() {
+            return conn;
+        }
+
+        public int getProjectID() {
+            return projectID;
+        }
+        
+        
         private void setType(String type) {
             this.type = type;
         }
@@ -124,10 +166,10 @@ public class Project {
             this.title = t;
         }
         
-	      public void viewProjectDetails() {
-		        // TODO - implement Project.viewProjectDetails
-		        throw new UnsupportedOperationException();
-	      }
+        public void viewProjectDetails() {
+                  // TODO - implement Project.viewProjectDetails
+                  throw new UnsupportedOperationException();
+        }
         
         public static List<Project> getNewProjects() {
             List<Project> projects = new ArrayList<Project>();
@@ -241,7 +283,7 @@ public class Project {
         List<Project> projects = new ArrayList<Project>();
         try{
             conn = OracleConnection.getConnection();
-            String sql = "SELECT * FROM Project";
+            String sql = "SELECT * FROM Project WHERE reviewedby IS NOT NULL";
             //Wrap sql with statement
             Statement stmt = conn.createStatement();
             //run sql
@@ -249,15 +291,16 @@ public class Project {
             //processed data in result set
             while(rs.next()){
                 Project proj = new Project();
-                proj.setTitle(rs.getString(1));
-                proj.setType(rs.getString(2));
-                proj.setSponsorCompany(rs.getString(3));
-                proj.setContacts(rs.getString(4));
-                proj.setAcademicYear(rs.getString(5));
-                proj.setSkillsRequested(rs.getString(6));
-                proj.setDisciplines(rs.getString(7));
-                proj.setNumOfStudents(rs.getInt(8));
-                proj.setDeliverables(rs.getString(9));
+                proj.setId((rs.getInt("projectId")));
+                proj.setTitle(rs.getString("title"));
+                proj.setType(rs.getString("type"));
+                proj.setSponsorCompany(rs.getString("sponsor"));
+                proj.setContacts(rs.getString(5));
+                proj.setAcademicYear(rs.getString(6));
+                proj.setSkillsRequested(rs.getString(7));
+                proj.setDisciplines(rs.getString(8));
+                proj.setNumOfStudents((rs.getInt(9)));
+                proj.setDeliverables(rs.getString(10));
                 //add to list
                 projects.add(proj);
             }
