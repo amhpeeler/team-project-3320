@@ -13,7 +13,7 @@
         <title>Student</title>
     </head>
     <body>
-        <h1>All Projects</h1>
+        <h1>Approved Projects</h1>
         <table>
             <tbody>
             <c:forEach items="${projects}" var="proj">
@@ -28,6 +28,7 @@
                     <td> <c:out value="${proj.getDisciplines()}" /></td>
                     <td> <c:out value="${proj.getNumOfStudents()}" /></td>
                     <td> <c:out value="${proj.getDeliverables()}" /></td>
+                    <td><a href="projectDetails?projectId=${proj.id}">Project Details</a></td>
                 </tr>
             </c:forEach>
             </tbody>
