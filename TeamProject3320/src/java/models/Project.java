@@ -124,15 +124,15 @@ public class Project {
                 //processed data in result set
                 while(rs.next()){
                     Project proj = new Project();
-                    proj.setTitle(rs.getString(1));
-                    proj.setType(rs.getString(2));
-                    proj.setSponsorCompany(rs.getString(3));
-                    proj.setContacts(rs.getString(4));
-                    proj.setAcademicYear(rs.getString(5));
-                    proj.setSkillsRequested(rs.getString(6));
-                    proj.setDisciplines(rs.getString(7));
-                    proj.setNumOfStudents((rs.getInt(8)));
-                    proj.setDeliverables(rs.getString(9));
+                    proj.setTitle(rs.getString(2));
+                    proj.setType(rs.getString(3));
+                    proj.setSponsorCompany(rs.getString(4));
+                    proj.setContacts(rs.getString(5));
+                    proj.setAcademicYear(rs.getString(6));
+                    proj.setSkillsRequested(rs.getString(7));
+                    proj.setDisciplines(rs.getString(8));
+                    proj.setNumOfStudents((rs.getInt(9)));
+                    proj.setDeliverables(rs.getString(10));
                     //add to list
                     projects.add(proj);
                 }
@@ -146,7 +146,7 @@ public class Project {
             return projects;
         }
         
-        public static List<Project> getMentorProjects(String mentorID) {
+        public  List<Project> getMentorProjects(String mentorID) {
             List<Project> projects = new ArrayList<Project>();
             try{
                 conn = OracleConnection.getConnection();
@@ -160,15 +160,15 @@ public class Project {
                 //processed data in result set
                 while(rs.next()){
                     Project proj = new Project();
-                    proj.setTitle(rs.getString(1));
-                    proj.setType(rs.getString(2));
-                    proj.setSponsorCompany(rs.getString(3));
-                    proj.setContacts(rs.getString(4));
-                    proj.setAcademicYear(rs.getString(5));
-                    proj.setSkillsRequested(rs.getString(6));
-                    proj.setDisciplines(rs.getString(7));
-                    proj.setNumOfStudents((rs.getInt(8)));
-                    proj.setDeliverables(rs.getString(9));
+                    proj.setTitle(rs.getString(2));
+                    proj.setType(rs.getString(3));
+                    proj.setSponsorCompany(rs.getString(4));
+                    proj.setContacts(rs.getString(5));
+                    proj.setAcademicYear(rs.getString(6));
+                    proj.setSkillsRequested(rs.getString(7));
+                    proj.setDisciplines(rs.getString(8));
+                    proj.setNumOfStudents((rs.getInt(9)));
+                    proj.setDeliverables(rs.getString(10));
                     //add to list
                     projects.add(proj);
                 }

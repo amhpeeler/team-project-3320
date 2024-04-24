@@ -61,13 +61,19 @@ public class mentorViewCTL extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String mentorID = (String) session.getAttribute("username");
+        String mentorID = (String) session.getAttribute("user");
+        System.out.println("Mentor:" + mentorID);
+        Project p = new Project();
         List<Project> unreviewedProjects = Project.getNewProjects();
-        List<Project> mentorProjects = Project.getMentorProjects(mentorID); //pull mentor id from session data
+        List<Project> mentorProjects = p.getMentorProjects(mentorID); //pull mentor id from session data
+        System.out.println("title: " + mentorProjects.get(0).getTitle());
+        request.setAttribute("mentorID", mentorID);
         request.setAttribute("unreviewed", unreviewedProjects);
         request.setAttribute("mentored", mentorProjects);
         RequestDispatcher rd = request.getRequestDispatcher("mentorview.jsp");
-        rd.forward(request, response);    }
+        rd.forward(request, response);
+    }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -82,6 +88,7 @@ public class mentorViewCTL extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
 
     /**
      * Returns a short description of the servlet.
