@@ -66,16 +66,8 @@ public class User implements Serializable{
                     conn = OracleConnection.getConnection();
                     String sql = "INSERT INTO Person(ID, password, type, fname, lname, phoneNumber, "
                             + "emailAddress) VALUES(?,?,?,?,?,?,?)";
-                    String t = "Error";
-                    if(type.equals("Student")){
-                        t = "S";
-                    } else if (type.equals("Staff")) {
-                        t = "C";
-                    } else if (type.equals("Sponsor")) {
-                        t = "X";
-                    } else {
-                        //error
-                    }
+                    String t = type;
+                    
                                         
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setString(1, uname);
@@ -103,6 +95,27 @@ public class User implements Serializable{
                 }
                 return validated;
 	}
+        
+        public String getType(String user){
+            String type = "";
+                try{
+                    conn = OracleConnection.getConnection();
+                    String sql = "SELECT * FROM Person WHERE ID=?";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, user);
+                    ResultSet rs = stmt.executeQuery();
+                    if(rs.next()){
+                        type = rs.getString("TYPE");
+                    }
+                    
+                }catch(Exception exp){
+                    exp.printStackTrace();
+                }finally{
+                    conn = null;
+                    OracleConnection.closeConnection();
+                }
+            return type;
+        }
         
 
 }
