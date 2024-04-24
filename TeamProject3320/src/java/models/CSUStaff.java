@@ -27,7 +27,27 @@ public class CSUStaff extends User {
 	 */
 	public boolean approveProject(String title) {
 		// TODO - implement CSUStaff.approveProject
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+                boolean changed = false;
+                try{
+                    conn = OracleConnection.getConnection();
+                    String t = title;
+                    String sql = "UPDATE PROJECT SET reviewedBy=? WHERE title = ? AND reviewedBy IS NULL";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, "testTitle");
+                    stmt.setString(2, title);
+                    
+                    int rset = stmt.executeUpdate();
+                    if(rset == 1){
+                        changed = true;
+                    }
+                }catch(Exception exp){
+                    exp.printStackTrace();
+                }finally{
+                    conn = null;
+                    OracleConnection.closeConnection();
+                }
+                return changed;
 	}
 
 	/**
