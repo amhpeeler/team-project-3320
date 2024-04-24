@@ -75,6 +75,48 @@ public class Project {
         public String getType() {
             return type;
         }
+
+        public String getSponsorCompany() {
+            return sponsorCompany;
+        }
+
+        public String getContacts() {
+            return contacts;
+        }
+
+        public String getAcademicYear() {
+            return academicYear;
+        }
+
+        public String getSkillsRequested() {
+            return skillsRequested;
+        }
+
+        public String getDisciplines() {
+            return disciplines;
+        }
+
+        public int getNumOfStudents() {
+            return numOfStudents;
+        }
+
+        public String getDeliverables() {
+            return deliverables;
+        }
+
+        public int getNumOfTeams() {
+            return numOfTeams;
+        }
+
+        public static Connection getConn() {
+            return conn;
+        }
+
+        public int getProjectID() {
+            return projectID;
+        }
+        
+        
         private void setType(String type) {
             this.type = type;
         }
@@ -124,10 +166,10 @@ public class Project {
             this.title = t;
         }
         
-	      public void viewProjectDetails() {
-		        // TODO - implement Project.viewProjectDetails
-		        throw new UnsupportedOperationException();
-	      }
+        public void viewProjectDetails() {
+                  // TODO - implement Project.viewProjectDetails
+                  throw new UnsupportedOperationException();
+        }
         
         public static List<Project> getNewProjects() {
             List<Project> projects = new ArrayList<Project>();

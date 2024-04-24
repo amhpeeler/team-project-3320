@@ -18,9 +18,16 @@
             <tbody>
             <c:forEach items="${projects}" var="proj">
                 <tr>
-                    <td>
-                        <c:out value="${proj.getTitle()}" />
-                    </td>
+                    <td> <c:out value="${proj.getTitle()}" /> </td>
+                    <td> <c:out value="${proj.getId()}" /> </td>
+                    <td> <c:out value="${proj.getType()}" /> </td>
+                    <td> <c:out value="${proj.getSponsorCompany()}" /> </td>
+                    <td> <c:out value="${proj.getContacts()}" /> </td>
+                    <td> <c:out value="${proj.getAcademicYear()}" /> </td>
+                    <td> <c:out value="${proj.getSkillsRequested()}" /> </td>
+                    <td> <c:out value="${proj.getDisciplines()}" /></td>
+                    <td> <c:out value="${proj.getNumOfStudents()}" /></td>
+                    <td> <c:out value="${proj.getDeliverables()}" /></td>
                 </tr>
             </c:forEach>
             </tbody>
