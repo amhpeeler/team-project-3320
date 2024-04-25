@@ -7,6 +7,7 @@ package models;
 import java.sql.Statement;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,40 @@ public class Mentor extends CSUStaff {
 
 	/**
 	 * 
-	 * @param title
-         * @param files
+	 * @param projectId
+         * @param deliverables
 	 */
-	public void uploadDeliverables(String title, File files) {
-		// TODO - implement Mentor.uploadDeliverables
-		throw new UnsupportedOperationException();
+	public static boolean uploadDeliverables(int projectId, String deliverables) {
+            boolean validated = false;
+            try{
+                conn = OracleConnection.getConnection();
+                String sql = "UPDATE Project "
+                    + "SET submitteddeliverables = ? "
+                    + "WHERE projectid =?";
+                    
+                                        
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, deliverables);
+                stmt.setInt(2, projectId);
+                    
+                int rset = stmt.executeUpdate();
+                //check if data inserted
+                if (rset == 1){
+                    //data inserted
+                    validated = true;
+                } else {
+                    validated = false;
+                }
+                    
+
+            }catch(Exception exp){
+                exp.printStackTrace();
+            }finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return validated;
+		
 	}
 
 	public Project accessCurrentProjects() {
