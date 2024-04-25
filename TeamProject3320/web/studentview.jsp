@@ -14,6 +14,9 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
+        <nav>
+            <a href="displayProfileCTL">Profile</a>
+        </nav>
         <h1>Approved Projects</h1>
         <table class="heading_container">
             <tbody>
