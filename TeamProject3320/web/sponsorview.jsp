@@ -4,6 +4,7 @@
     Author     : celso
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,10 +24,6 @@
                     <div>
                         Type:
                         <input type ="text" name="type"/><br>
-                    </div>
-                    <div>
-                        Sponsor:
-                        <input type ="text" name="sponsor"/><br>
                     </div>
                     <div>
                         Contacts:
@@ -60,10 +57,24 @@
             </div>
         </section>
         <section>
-            <h1>View Requested Projects?</h1>
-            <div>
-                
-            </div>
+            <h1>View Requested Projects</h1>
+            <table>
+            <thead>
+            <th>Titles:</th>
+            </thead>
+            <tbody>
+                <c:forEach items="${projects}" var="proj">
+                    <tr>
+                        <td>
+                          <c:out value="${proj.getTitle()}"/>
+                        </td>
+                        
+                    </tr>
+                </c:forEach>
+            </tbody>
+        
+            
+        </table>
         </section>
     </body>
 </html>
