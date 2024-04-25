@@ -31,7 +31,7 @@
         <tbody>
             <c:forEach items="${mentored}" var="ment">
                 <tr>
-                    <td><a href="projectDetails?projectId=${ment.id}">${ment.title}</a></td>
+                    <td><a href="mentorProjectDetails?projectId=${ment.id}">${ment.title}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

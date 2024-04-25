@@ -10,18 +10,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import models.Request;
+import models.Project;
+
 
 /**
  *
  * @author annamariepeeler
  */
-@WebServlet(name = "viewRequestsCTL", urlPatterns = {"/viewRequestsCTL"})
-public class viewRequestsCTL extends HttpServlet {
+@WebServlet(name = "mentorProjectDetails", urlPatterns = {"/mentorProjectDetails"})
+public class mentorProjectDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class viewRequestsCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewRequestsCTL</title>");            
+            out.println("<title>Servlet projectDetails</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewRequestsCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet projectDetails at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,11 +62,14 @@ public class viewRequestsCTL extends HttpServlet {
             throws ServletException, IOException {
         String projectIdString = request.getParameter("projectId");
         int projectId = Integer.parseInt(projectIdString);
-        HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("user");
-        List<Request> requests = Request.getAllStudentRequests(studentId, projectId);
-        request.setAttribute("requests", requests);
-        RequestDispatcher rd = request.getRequestDispatcher("viewRequests.jsp");
+
+        // Fetch the project details based on the ID
+        Project project = Project.getProjectById(projectId);
+        
+        if (project != null) {
+            request.setAttribute("project", project);
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("mentorProjectDetails.jsp");
         rd.forward(request, response);
     }
 

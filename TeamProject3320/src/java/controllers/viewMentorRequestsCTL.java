@@ -20,8 +20,8 @@ import models.Request;
  *
  * @author annamariepeeler
  */
-@WebServlet(name = "viewRequestsCTL", urlPatterns = {"/viewRequestsCTL"})
-public class viewRequestsCTL extends HttpServlet {
+@WebServlet(name = "viewMentorRequestsCTL", urlPatterns = {"/viewMentorRequestsCTL"})
+public class viewMentorRequestsCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class viewRequestsCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewRequestsCTL</title>");            
+            out.println("<title>Servlet viewMentorRequestsCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewRequestsCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet viewMentorRequestsCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,8 +64,10 @@ public class viewRequestsCTL extends HttpServlet {
         String projectIdString = request.getParameter("projectId");
         int projectId = Integer.parseInt(projectIdString);
         HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("user");
-        List<Request> requests = Request.getAllStudentRequests(studentId, projectId);
+        String mentorId = (String) session.getAttribute("user");
+        List<Request> requests = Request.getAllMentorRequests(mentorId, projectId);
+        System.out.println("Response: " + requests.get(0).getResponse());
+        System.out.println("Response: " + requests.get(1).getResponse());
         request.setAttribute("requests", requests);
         RequestDispatcher rd = request.getRequestDispatcher("viewRequests.jsp");
         rd.forward(request, response);

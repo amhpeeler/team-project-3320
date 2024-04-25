@@ -10,18 +10,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import models.Request;
+
 
 /**
  *
  * @author annamariepeeler
  */
-@WebServlet(name = "viewRequestsCTL", urlPatterns = {"/viewRequestsCTL"})
-public class viewRequestsCTL extends HttpServlet {
+@WebServlet(name = "respondRequestCTL", urlPatterns = {"/respondRequestCTL"})
+public class respondRequestCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class viewRequestsCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewRequestsCTL</title>");            
+            out.println("<title>Servlet respondRequestCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet viewRequestsCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet respondRequestCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,15 +60,12 @@ public class viewRequestsCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String projectIdString = request.getParameter("projectId");
-        int projectId = Integer.parseInt(projectIdString);
-        HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("user");
-        List<Request> requests = Request.getAllStudentRequests(studentId, projectId);
-        request.setAttribute("requests", requests);
-        RequestDispatcher rd = request.getRequestDispatcher("viewRequests.jsp");
-        rd.forward(request, response);
-    }
+        String requestIdString = request.getParameter("requestId");
+        int requestId = Integer.parseInt(requestIdString);
+        Request fullRequest = Request.getRequest(requestId);
+        request.setAttribute("request", fullRequest);
+        RequestDispatcher rd = request.getRequestDispatcher("respondRequest.jsp");
+        rd.forward(request, response);    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -82,7 +78,17 @@ public class viewRequestsCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String requestIdString = request.getParameter("id");
+        int requestid = Integer.parseInt(requestIdString);
+        String message = request.getParameter("message");
+        boolean isRequested = Request.makeResponse(requestid, message);
+        if(isRequested) {
+            response.sendRedirect("studentViewCTL");
+        }else{
+            response.sendRedirect("index.html");
+        }
+
     }
 
     /**

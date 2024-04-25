@@ -27,6 +27,7 @@
                 <th>Student</th>
                 <th>Mentor</th>
                 <th>Request</th>
+                <th>Response</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
                     <td><c:out value="${req.student}" /></td>
                     <td><c:out value="${req.mentor}" /></td>
                     <td><c:out value="${req.request}" /></td>
+                    <td><c:out value="${req.response}" /></td>
                 </tr>
             </c:forEach>
         </tbody>
