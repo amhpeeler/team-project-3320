@@ -22,20 +22,21 @@ public class CSUStaff extends User {
 
 	/**
 	 * 
-	 * @param title
-         * @return approved
+	 * @param projectID
+         * @param username
+         * @return changed
 	 */
-	public boolean approveProject(String title) {
+	public boolean approveProject(int projectID, String username) {
 		// TODO - implement CSUStaff.approveProject
 		//throw new UnsupportedOperationException();
                 boolean changed = false;
+                
                 try{
                     conn = OracleConnection.getConnection();
-                    String t = title;
-                    String sql = "UPDATE PROJECT SET reviewedBy=? WHERE title = ? AND reviewedBy IS NULL";
+                    String sql = "UPDATE PROJECT SET reviewedBy=? WHERE projectID = ? AND reviewedBy='null'";
                     PreparedStatement stmt = conn.prepareStatement(sql);
-                    stmt.setString(1, "testTitle");
-                    stmt.setString(2, title);
+                    stmt.setString(1, username);
+                    stmt.setInt(2, projectID);
                     
                     int rset = stmt.executeUpdate();
                     if(rset == 1){

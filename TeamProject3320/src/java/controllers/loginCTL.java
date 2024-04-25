@@ -101,7 +101,7 @@ public class loginCTL extends HttpServlet {
                 response.sendRedirect("studentViewCTL");
             }  else if (type.equalsIgnoreCase("sponsor")) {
                 //direct to student view
-                response.sendRedirect("sponsorview.jsp");
+                response.sendRedirect("sponsorViewCTL");
             } else {
                 //error
                 response.sendRedirect("test.html");

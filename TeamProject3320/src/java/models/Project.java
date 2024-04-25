@@ -15,25 +15,26 @@ import utils.OracleConnection;
  */
 public class Project {
 
-        private int id;
-        private String title;
-	private String type;
-	private String sponsorCompany;
-	private String contacts;
-	private String academicYear;
-	private String skillsRequested;
-	private String disciplines;
-	private int numOfStudents;
-	private String deliverables;
-	private int numOfTeams = 1;
-        private String student1;
-        private String student2;
-        private String student3;
-        private String student4;
-        private String student5;
-        private int teamId;
-        private String mentor;
-        private static Connection conn = null;
+    private int id;
+    private String title;
+    private String type;
+	  private String sponsorCompany;
+	  private String contacts;
+	  private String academicYear;
+	  private String skillsRequested;
+	  private String disciplines;
+	  private int numOfStudents;
+    private String description;
+	  private String deliverables;
+	  private int numOfTeams = 1;
+    private String student1;
+    private String student2;
+    private String student3;
+    private String student4;
+    private String student5;
+    private int teamId;
+    private String mentor;
+    private static Connection conn = null;
 
 
     public String getSponsorCompany() {
@@ -168,6 +169,55 @@ public class Project {
         public String getType() {
             return type;
         }
+
+        public String getSponsorCompany() {
+            return sponsorCompany;
+        }
+
+        public String getContacts() {
+            return contacts;
+        }
+
+        public String getAcademicYear() {
+            return academicYear;
+        }
+
+        public String getSkillsRequested() {
+            return skillsRequested;
+        }
+
+        public String getDisciplines() {
+            return disciplines;
+        }
+
+        public int getNumOfStudents() {
+            return numOfStudents;
+        }
+
+        public String getDeliverables() {
+            return deliverables;
+        }
+
+        public int getNumOfTeams() {
+            return numOfTeams;
+        }
+
+        public static Connection getConn() {
+            return conn;
+        }
+
+        public int getProjectID() {
+            return id;
+        }
+        
+        public String getDescription(){
+            return description;
+        }
+        
+        public void setDescription(String desc){
+            this.description = desc;
+        }
+        
         private void setType(String type) {
             this.type = type;
         }
@@ -206,9 +256,6 @@ public class Project {
         private void setNumOfTeams(int numOfTeams) {
             this.numOfTeams = numOfTeams;
         }
-
-
-        
 
         
         private void setTitle(String t){
@@ -263,7 +310,7 @@ public class Project {
             List<Project> projects = new ArrayList<Project>();
             try{
                 conn = OracleConnection.getConnection();
-                String sql = "SELECT * FROM Project where reviewedby is NULL";
+                String sql = "SELECT * FROM Project where reviewedby = 'null'";
                 //Wrap sql with statement
                 Statement stmt = conn.createStatement();
                 //run sql
@@ -276,10 +323,11 @@ public class Project {
                     proj.setType(rs.getString(3));
                     proj.setSponsorCompany(rs.getString(4));
                     proj.setContacts(rs.getString(5));
-                    proj.setAcademicYear(rs.getString(6));
-                    proj.setSkillsRequested(rs.getString(7));
-                    proj.setDisciplines(rs.getString(8));
-                    proj.setNumOfStudents((rs.getInt(9)));
+                    
+                    proj.setSkillsRequested(rs.getString(6));
+                    proj.setDisciplines(rs.getString(7));
+                    proj.setNumOfStudents((rs.getInt(8)));
+                    proj.setDescription(rs.getString(9));
                     proj.setDeliverables(rs.getString(10));
                     //add to list
                     projects.add(proj);
@@ -313,10 +361,11 @@ public class Project {
                     proj.setType(rs.getString(3));
                     proj.setSponsorCompany(rs.getString(4));
                     proj.setContacts(rs.getString(5));
-                    proj.setAcademicYear(rs.getString(6));
-                    proj.setSkillsRequested(rs.getString(7));
-                    proj.setDisciplines(rs.getString(8));
-                    proj.setNumOfStudents((rs.getInt(9)));
+                    
+                    proj.setSkillsRequested(rs.getString(6));
+                    proj.setDisciplines(rs.getString(7));
+                    proj.setNumOfStudents((rs.getInt(8)));
+                    proj.setDescription(rs.getString(9));
                     proj.setDeliverables(rs.getString(10));
                     //add to list
                     projects.add(proj);
@@ -351,10 +400,11 @@ public class Project {
                     proj.setType(rs.getString("type"));
                     proj.setSponsorCompany(rs.getString("sponsor"));
                     proj.setContacts(rs.getString(5));
-                    proj.setAcademicYear(rs.getString(6));
-                    proj.setSkillsRequested(rs.getString(7));
-                    proj.setDisciplines(rs.getString(8));
-                    proj.setNumOfStudents((rs.getInt(9)));
+                    
+                    proj.setSkillsRequested(rs.getString(6));
+                    proj.setDisciplines(rs.getString(7));
+                    proj.setNumOfStudents((rs.getInt(8)));
+                    proj.setDescription(rs.getString(9));
                     proj.setDeliverables(rs.getString(10));
                 }
             
@@ -439,10 +489,46 @@ public class Project {
             } finally {
                 conn = null;
                 OracleConnection.closeConnection();
-            }
-            return projects;
-        }
 
+            }
+          return projects;
+        }
         
 
+    public List<Project> getSponsorProjects(String sponsor) {
+        List<Project> projects = new ArrayList<Project>();
+            try{
+                conn = OracleConnection.getConnection();
+                String sql = "SELECT * FROM Project where sponsor=?";
+                //Wrap sql with statement
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, sponsor);
+
+                //run sql
+                ResultSet rs = stmt.executeQuery();
+                //processed data in result set
+                while(rs.next()){
+                    Project proj = new Project();
+                    proj.setId(rs.getInt(1));
+                    proj.setTitle(rs.getString(2));
+                    proj.setType(rs.getString(3));
+                    proj.setSponsorCompany(rs.getString(4));
+                    proj.setContacts(rs.getString(5));
+                    
+                    proj.setSkillsRequested(rs.getString(6));
+                    proj.setDisciplines(rs.getString(7));
+                    proj.setNumOfStudents((rs.getInt(8)));
+                    proj.setDescription(rs.getString(9));
+                    proj.setDeliverables(rs.getString(10));
+                    //add to list
+                    projects.add(proj);
+                }
+        }catch(Exception e){
+            e.printStackTrace();
+        } finally{
+            conn = null;
+            OracleConnection.closeConnection();
+        }
+        return projects;
+    }
 }
