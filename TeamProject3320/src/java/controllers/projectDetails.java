@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import models.Project;
@@ -61,8 +62,10 @@ public class projectDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String projectIdString = request.getParameter("projectId");
+        System.out.println(projectIdString);
         int projectId = Integer.parseInt(projectIdString);
-
+        HttpSession session = request.getSession();
+        session.setAttribute("projID", projectId);
         // Fetch the project details based on the ID
         Project project = Project.getProjectById(projectId);
         

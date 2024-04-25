@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 import models.CSUStaff;
+import models.Project;
 
 /**
  *
@@ -64,7 +65,7 @@ public class approveProjectCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -82,10 +83,13 @@ public class approveProjectCTL extends HttpServlet {
         HttpSession session = request.getSession();
         CSUStaff staff = new CSUStaff();
         String username = (String) session.getAttribute("user");
-        
-        String[] projectIDs = (((String) request.getAttribute("unreviewed")).split(", "));
-        int projectID = Integer.parseInt(projectIDs[0]);//needs to grab the projectID from the corresponding project thats viewed, idk how
-        staff.approveProject(projectID, username);
+        int projectID = (Integer) session.getAttribute("projID");
+        System.out.println(projectID);
+        if(staff.approveProject(projectID, username)){
+            response.sendRedirect("mentorViewCTL");
+        }else{
+            response.sendRedirect("test.html");
+        }
     }
 
     /**
