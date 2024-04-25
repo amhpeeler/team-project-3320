@@ -70,8 +70,6 @@ public class assignStudentsCTL extends HttpServlet {
         session.setAttribute("project", projectId);
 
         List<Student> students = Student.getAllStudents(projectId);
-        System.out.println(students.get(0).getName());
-        System.out.println(students.get(0).getStudentID());
         request.setAttribute("students", students);
 
         request.setAttribute("projectid", projectId);

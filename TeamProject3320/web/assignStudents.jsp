@@ -40,6 +40,8 @@
                 </c:forEach>
             </select>
             <input type="submit" value="Approve"/>
-        </form>    
+        </form>  
+        
+        <a href="mentorViewCTL">Back to Projects</a>
     </body>
 </html>
