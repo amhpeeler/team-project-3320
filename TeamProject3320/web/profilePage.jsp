@@ -3,7 +3,7 @@
     Created on : Apr 25, 2024, 10:09:45 AM
     Author     : celso
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,14 +17,14 @@
             <c:forEach items="${profile}" var="p">
                 
                     <li> <c:out value="${p.fname}" /> <c:out value="${p.lname}"/></li>
-                    <li> <c:out value="${p.phoneNumber}" /> </li>
-                    <li> <c:out value="${p.emailAddress}" /> </li>
+                    <li> <c:out value="${p.phone}" /> </li>
+                    <li> <c:out value="${p.email}" /> </li>
                     <li> <c:out value="${p.school}" /> </li>
                     <li> <c:out value="${p.year}" /> </li>
                     <li> <c:out value="${p.major}" /> </li>
                     <li><c:out value="${p.minor}" /> </li>
                     <li> <c:out value="${p.skills}" /></li>
-                    <li> <c:out value="${p.pastExperiences}" /></li>
+                    <li> <c:out value="${p.past}" /></li>
                 
             </c:forEach>
         </ul> 
