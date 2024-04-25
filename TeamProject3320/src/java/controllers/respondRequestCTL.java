@@ -84,7 +84,7 @@ public class respondRequestCTL extends HttpServlet {
         String message = request.getParameter("message");
         boolean isRequested = Request.makeResponse(requestid, message);
         if(isRequested) {
-            response.sendRedirect("studentViewCTL");
+            response.sendRedirect("mentorViewCTL");
         }else{
             response.sendRedirect("index.html");
         }

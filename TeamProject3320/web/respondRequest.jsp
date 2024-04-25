@@ -13,7 +13,7 @@
     </head>
     <h1>Make Request for Project</h1>
     <body>
-        <form action="makeRequestCTL" method="post">
+        <form action="respondRequestCTL" method="post">
             <ul>
                 <li><input type="hidden" name="id" value="${request.id}" readonly></li>
                 <li><span>${request.title}</span></li>
