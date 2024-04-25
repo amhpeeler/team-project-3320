@@ -7,6 +7,7 @@ package models;
 import java.sql.Statement;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,40 @@ public class Mentor extends CSUStaff {
 
 	/**
 	 * 
-	 * @param title
-         * @param files
+	 * @param projectId
+         * @param deliverables
 	 */
-	public void uploadDeliverables(String title, File files) {
-		// TODO - implement Mentor.uploadDeliverables
-		throw new UnsupportedOperationException();
+	public static boolean uploadDeliverables(int projectId, String deliverables) {
+            boolean validated = false;
+            try{
+                conn = OracleConnection.getConnection();
+                String sql = "UPDATE Project "
+                    + "SET submitteddeliverables = ? "
+                    + "WHERE projectid =?";
+                    
+                                        
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, deliverables);
+                stmt.setInt(2, projectId);
+                    
+                int rset = stmt.executeUpdate();
+                //check if data inserted
+                if (rset == 1){
+                    //data inserted
+                    validated = true;
+                } else {
+                    validated = false;
+                }
+                    
+
+            }catch(Exception exp){
+                exp.printStackTrace();
+            }finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return validated;
+		
 	}
 
 	public Project accessCurrentProjects() {
@@ -104,5 +133,37 @@ public class Mentor extends CSUStaff {
             }
             return mentors;
         }
+        
+        
+	public static boolean assignStudents(int projectID, String mentorID, String s1, String s2, String s3, String s4, String s5) {
+		// TODO - implement CSUStaff.approveProject
+		//throw new UnsupportedOperationException();
+                boolean changed = false;
+                
+                try{
+                    conn = OracleConnection.getConnection();
+                    String sql = "INSERT INTO TEAM(projectID,mentorID, student1, Student2, Student3, Student4, Student5) "
+                            + "Values(?,?,?,?,?,?,?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    stmt.setInt(1, projectID);
+                    stmt.setString(2, mentorID);
+                    stmt.setString(3, s1);
+                    stmt.setString(4, s2);
+                    stmt.setString(5, s3);
+                    stmt.setString(6, s4);
+                    stmt.setString(7, s5);
+                    
+                    int rset = stmt.executeUpdate();
+                    if(rset == 1){
+                        changed = true;
+                    }
+                }catch(Exception exp){
+                    exp.printStackTrace();
+                }finally{
+                    conn = null;
+                    OracleConnection.closeConnection();
+                }
+                return changed;
+	}
 
 }

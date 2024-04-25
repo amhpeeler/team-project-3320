@@ -28,7 +28,7 @@
                 
             </c:forEach>
         </ul> 
-    <a href="updateProfile.jsp">Update Profile</a>
-    
+        <a href="updateProfile.jsp">Update Profile</a>
+        <a href="studentViewCTL">Back to Projects</a>
     </body>
 </html>

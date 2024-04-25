@@ -13,14 +13,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import models.Mentor;
 import models.Project;
+import models.Student;
+
 
 /**
  *
  * @author annamariepeeler
  */
-@WebServlet(name = "studentProjectDetails", urlPatterns = {"/studentProjectDetails"})
-public class studentProjectDetails extends HttpServlet {
+@WebServlet(name = "assignStudentsCTL", urlPatterns = {"/assignStudentsCTL"})
+public class assignStudentsCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +43,10 @@ public class studentProjectDetails extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet studentProjectDetails</title>");            
+            out.println("<title>Servlet assignStudentsCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet studentProjectDetails at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet assignStudentsCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,18 +68,15 @@ public class studentProjectDetails extends HttpServlet {
         int projectId = Integer.parseInt(projectIdString);
         HttpSession session = request.getSession();
         session.setAttribute("project", projectId);
-        System.out.print("String: "+ projectIdString);
-        System.out.print("id: "+ projectId);
 
+        List<Student> students = Student.getAllStudents(projectId);
+        request.setAttribute("students", students);
 
-        // Fetch the project details based on the ID
-        Project project = Project.viewProjectDetails(projectId);
+        request.setAttribute("projectid", projectId);
         
-        if (project != null) {
-            request.setAttribute("project", project);
-        }
-        RequestDispatcher rd = request.getRequestDispatcher("studentProjectDetails.jsp");
-        rd.forward(request, response);    }
+        RequestDispatcher rd = request.getRequestDispatcher("assignStudents.jsp");
+        rd.forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -88,7 +89,29 @@ public class studentProjectDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        int projectId = (Integer)session.getAttribute("project");
+        String mentorID = (String) session.getAttribute("user");
+        
+        String s1 = request.getParameter("student1");
+        String s2 = request.getParameter("student2");
+        String s3 = request.getParameter("student3");
+        String s4 = request.getParameter("student4");
+        String s5 = request.getParameter("student5");
+
+        // Use the selected student IDs as needed
+        System.out.println("Selected Student 1: " + s1);
+        System.out.println("Selected Student 2: " + s2);
+        System.out.println("Selected Student 3: " + s3);
+        System.out.println("Selected Student 4: " + s4);
+        System.out.println("Selected Student 5: " + s5);
+
+        if(Mentor.assignStudents(projectId, mentorID, s1, s2, s3, s4, s5)){
+            response.sendRedirect("mentorViewCTL");
+        }else{
+            response.sendRedirect("test.html");
+        }
     }
 
     /**

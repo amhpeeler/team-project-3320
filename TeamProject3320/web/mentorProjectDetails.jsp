@@ -44,7 +44,8 @@
         <nav>
             <div>
                 <a href="viewMentorRequestsCTL?projectId=${project.id}">View Requests</a>
-                <a href="reviewDelieverablesCTL">Review Delieverables</a>
+                <a href="submitDeliverablesCTL?projectId=${project.id}">Submit Deliverables</a>
+                <a href="assignStudentsCTL?projectId=${project.id}">Assign Students</a>                
             </div>
         </nav>
     </div>

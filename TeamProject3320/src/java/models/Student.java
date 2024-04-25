@@ -6,6 +6,10 @@ package models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import utils.OracleConnection;
 
 /**
@@ -15,14 +19,28 @@ import utils.OracleConnection;
  */
 public class Student extends User {
 
-	private String fname;
-	private String lname;
+	private String name;
 	private String studentID;
-	private String phoneNumber;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
         
         
         
-        private Connection conn = null;
+        private static Connection conn = null;
 
 
 	/**
@@ -157,5 +175,56 @@ public class Student extends User {
                 }
                 return validated;
 	}
+        
+        public static List<Student> getAllStudents(int projectId){
+            List<Student> students = new ArrayList<Student>();
+            try{
+                conn = OracleConnection.getConnection();
+                String sql = "SELECT p.id, p.fname, p.lname From Person p "
+                        + "Inner Join application a on a.studentid = p.id "
+                        + "where a.projectid = ?";
+                //Wrap sql with statement
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, projectId);
+                //run sql
+                ResultSet rs = stmt.executeQuery();
+                //processed data in result set
+                while(rs.next()){
+                    Student s = new Student();
+                    s.setStudentID(rs.getString("id"));
+                    s.setName(rs.getString("fname")+" "+rs.getString("lname"));
+                    //add to list
+                    students.add(s);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            } finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return students;
+        }
+        
+        public static boolean logHours(String studentID, int projectID, int hours) {
+            PreparedStatement stmt = null;
+            try {
+                //Inserts the user input from the textareas in application.jsp
+                conn = OracleConnection.getConnection();
+                String sql = "INSERT INTO WORKHOURS (studentID, projectID, hoursworked) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql); 
+                //Sets the String the int Statmentment
+                stmt.setString(1, studentID);
+                stmt.setInt(2, projectID);
+                stmt.setInt(3, hours);
+                //Executes the update
+                stmt.executeUpdate();
+            }catch(Exception exp){
+                    exp.printStackTrace();
+            }finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return true;
+        }
 
 }

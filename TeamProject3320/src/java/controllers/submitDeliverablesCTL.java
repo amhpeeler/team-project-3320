@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import models.Project;
+import models.Mentor;
 
 /**
  *
  * @author annamariepeeler
  */
-@WebServlet(name = "studentProjectDetails", urlPatterns = {"/studentProjectDetails"})
-public class studentProjectDetails extends HttpServlet {
+@WebServlet(name = "submitDeliverablesCTL", urlPatterns = {"/submitDeliverablesCTL"})
+public class submitDeliverablesCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class studentProjectDetails extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet studentProjectDetails</title>");            
+            out.println("<title>Servlet submitDeliverablesCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet studentProjectDetails at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet submitDeliverablesCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,20 +62,11 @@ public class studentProjectDetails extends HttpServlet {
             throws ServletException, IOException {
         String projectIdString = request.getParameter("projectId");
         int projectId = Integer.parseInt(projectIdString);
-        HttpSession session = request.getSession();
-        session.setAttribute("project", projectId);
-        System.out.print("String: "+ projectIdString);
-        System.out.print("id: "+ projectId);
+        request.setAttribute("projectid", projectId);
+        RequestDispatcher rd = request.getRequestDispatcher("submitDeliverables.jsp");
+        rd.forward(request, response);
 
-
-        // Fetch the project details based on the ID
-        Project project = Project.viewProjectDetails(projectId);
-        
-        if (project != null) {
-            request.setAttribute("project", project);
-        }
-        RequestDispatcher rd = request.getRequestDispatcher("studentProjectDetails.jsp");
-        rd.forward(request, response);    }
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -88,7 +79,15 @@ public class studentProjectDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String projectIdString = request.getParameter("projectid");
+        int projectid = Integer.parseInt(projectIdString);
+        String message = request.getParameter("message");
+        boolean isRequested = Mentor.uploadDeliverables(projectid, message);
+        if(isRequested) {
+            response.sendRedirect("mentorViewCTL");
+        }else{
+            response.sendRedirect("index.html");
+        }
     }
 
     /**
