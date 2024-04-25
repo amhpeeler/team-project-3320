@@ -204,5 +204,27 @@ public class Student extends User {
             }
             return students;
         }
+        
+        public static boolean logHours(String studentID, int projectID, int hours) {
+            PreparedStatement stmt = null;
+            try {
+                //Inserts the user input from the textareas in application.jsp
+                conn = OracleConnection.getConnection();
+                String sql = "INSERT INTO WORKHOURS (studentID, projectID, hoursworked) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql); 
+                //Sets the String the int Statmentment
+                stmt.setString(1, studentID);
+                stmt.setInt(2, projectID);
+                stmt.setInt(3, hours);
+                //Executes the update
+                stmt.executeUpdate();
+            }catch(Exception exp){
+                    exp.printStackTrace();
+            }finally{
+                conn = null;
+                OracleConnection.closeConnection();
+            }
+            return true;
+        }
 
 }
