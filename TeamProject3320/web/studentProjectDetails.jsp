@@ -46,7 +46,7 @@
                 <a href="makeRequestCTL?projectId=${project.id}&amp;mentorId=${project.mentor}">Make a Request</a>
                 <a href="viewRequestsCTL?projectId=${project.id}">View Requests</a>
                 <a href="submitDelieverablesCTL">Submit Delieverables</a>
-                <a href="submitDelieverablesCTL">Log Hours</a>
+                <a href="logHours.jsp?projectId=<%= project.getId() %>">Log Hours</a>
             </div>
         </nav>
     </div>
