@@ -11,16 +11,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Mentor</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
     <h1>Welcome, Mentor ${mentorID}</h1>
     
     <h1>To Be Reviewed:</h1>
-    <table>
+    <table class="heading_container">
         <tbody>
             <c:forEach items="${unreviewed}" var="uproj">
                 <tr>
-                    <td><a href="projectDetails?projectId=${uproj.id}">${uproj.title}</a></td>
+                    <td class="heading_container"><a href="projectDetails?projectId=${uproj.id}">${uproj.title}</a></td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -31,7 +32,7 @@
         <tbody>
             <c:forEach items="${mentored}" var="ment">
                 <tr>
-                    <td><a href="mentorProjectDetails?projectId=${ment.id}">${ment.title}</a></td>
+                    <td class="heading_container"><a href="projectDetails?projectId=${ment.id}">${ment.title}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

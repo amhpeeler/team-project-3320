@@ -11,8 +11,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Project Details</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
-<body>
+<body class="heading_container">
     <h1>Project Details</h1>
     
     <c:if test="${empty project}">

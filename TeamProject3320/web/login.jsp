@@ -10,18 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
         <h1>Please Enter Username and Password</h1>
         <form action="loginCTL" method="post">
-            <div>
+            <div class="heading_container">
                 Username:
-                <input type="text" name="username"/><br>
+                <input type="text" name="username" class="btn"/><br>
             <div/>
-            <div>
+            <div class="heading_container">
                 Password:
-                <input type="password" name="password"/><br>
-                <input type="submit" value="login">
+                <input type="password" name="password" class="btn"/><br>
+                <input type="submit" value="login" class="btn">
             <div/>
         </form>
     </body>

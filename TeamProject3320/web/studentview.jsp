@@ -11,10 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Student</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
         <h1>Approved Projects</h1>
-        <table>
+        <table class="heading_container">
             <tbody>
             <c:forEach items="${projects}" var="proj">
                 <tr>

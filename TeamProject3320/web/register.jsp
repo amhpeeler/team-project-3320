@@ -16,6 +16,7 @@
         display: none;
     }
 </style>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
     <form action="registerCTL" method="post">
