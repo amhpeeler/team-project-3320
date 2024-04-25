@@ -88,13 +88,21 @@ body {
 }
 
 .header_section .container-fluid {
-  padding-right: 25px;
-  padding-left: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.left, .right {
+  padding: 10px;
+  background-color: #ffffff;
 }
 
 .header_section .nav_container {
   margin: 0 auto;
 }
+
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
   padding: 3px 15px;
