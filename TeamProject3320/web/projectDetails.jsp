@@ -24,6 +24,9 @@
         <p>Title: <c:out value="${project.title}" /></p>
         <p>Type: <c:out value="${project.type}" /></p>
         <!-- Add more details as needed -->
+        <form action="approveProjectCTL" method="post">
+            <input type="submit" value="Approve"/>
+        </form>
     </c:if>
 </body>
 </html>
