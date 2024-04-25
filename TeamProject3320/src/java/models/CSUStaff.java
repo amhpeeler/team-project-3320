@@ -26,17 +26,18 @@ public class CSUStaff extends User {
          * @param username
          * @return changed
 	 */
-	public boolean approveProject(int projectID, String username) {
+	public boolean approveProject(int projectID, String mentorID, String username) {
 		// TODO - implement CSUStaff.approveProject
 		//throw new UnsupportedOperationException();
                 boolean changed = false;
                 
                 try{
                     conn = OracleConnection.getConnection();
-                    String sql = "UPDATE PROJECT SET reviewedBy=? WHERE projectID = ? AND reviewedBy='null'";
+                    String sql = "UPDATE PROJECT SET reviewedBy=?, mentor=? WHERE projectID = ? AND reviewedBy='null'";
                     PreparedStatement stmt = conn.prepareStatement(sql);
                     stmt.setString(1, username);
-                    stmt.setInt(2, projectID);
+                    stmt.setString(2, mentorID);
+                    stmt.setInt(3, projectID);
                     
                     int rset = stmt.executeUpdate();
                     if(rset == 1){

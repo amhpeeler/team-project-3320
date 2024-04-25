@@ -84,8 +84,9 @@ public class approveProjectCTL extends HttpServlet {
         CSUStaff staff = new CSUStaff();
         String username = (String) session.getAttribute("user");
         int projectID = (Integer) session.getAttribute("projID");
+        String mentorID = request.getParameter("mentor");
         System.out.println(projectID);
-        if(staff.approveProject(projectID, username)){
+        if(staff.approveProject(projectID, mentorID, username)){
             response.sendRedirect("mentorViewCTL");
         }else{
             response.sendRedirect("test.html");

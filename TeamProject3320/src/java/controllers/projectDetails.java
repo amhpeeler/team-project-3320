@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import models.Mentor;
 import models.Project;
 
 
@@ -66,6 +68,9 @@ public class projectDetails extends HttpServlet {
         int projectId = Integer.parseInt(projectIdString);
         HttpSession session = request.getSession();
         session.setAttribute("projID", projectId);
+        List<Mentor> mentors = Mentor.getAllMentors(); // Assuming Mentor is a class that retrieves all mentors
+        request.setAttribute("mentors", mentors);
+
         // Fetch the project details based on the ID
         Project project = Project.getProjectById(projectId);
         
