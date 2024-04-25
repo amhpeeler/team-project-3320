@@ -67,7 +67,6 @@ public class studentProjectsCTL extends HttpServlet {
         System.out.println("Student:" + studentID);
         Project p = new Project();
         List<Project> studentProjects = p.getStudentProjects(studentID); //pull student id from session data
-        System.out.println("title: " + studentProjects.get(0).getTitle());
         request.setAttribute("studentID", studentID);
         request.setAttribute("studentProjects", studentProjects);
         RequestDispatcher rd = request.getRequestDispatcher("studentProjects.jsp");

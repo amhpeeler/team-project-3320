@@ -66,8 +66,6 @@ public class viewMentorRequestsCTL extends HttpServlet {
         HttpSession session = request.getSession();
         String mentorId = (String) session.getAttribute("user");
         List<Request> requests = Request.getAllMentorRequests(mentorId, projectId);
-        System.out.println("Response: " + requests.get(0).getResponse());
-        System.out.println("Response: " + requests.get(1).getResponse());
         request.setAttribute("requests", requests);
         RequestDispatcher rd = request.getRequestDispatcher("viewMentorRequests.jsp");
         rd.forward(request, response);

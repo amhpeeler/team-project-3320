@@ -66,7 +66,6 @@ public class mentorViewCTL extends HttpServlet {
         Project p = new Project();
         List<Project> unreviewedProjects = Project.getNewProjects();
         List<Project> mentorProjects = p.getMentorProjects(mentorID); //pull mentor id from session data
-        System.out.println("title: " + mentorProjects.get(0).getTitle());
         request.setAttribute("mentorID", mentorID);
         request.setAttribute("unreviewed", unreviewedProjects);
         request.setAttribute("mentored", mentorProjects);
