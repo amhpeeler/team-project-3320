@@ -82,19 +82,12 @@ public class registerCTL extends HttpServlet {
         type = request.getParameter("userTypeHidden");
         System.out.println("doPost");
         if(type.equals("sponsor")){
-            System.out.println("Sponsor");
             username = request.getParameter("sponsorUName");
-            System.out.println(username);
             password = request.getParameter("sponsorPassword");
-            System.out.println(password);
             fname = request.getParameter("sponsorFName");
-            System.out.println(fname);
             lname = request.getParameter("sponsorLName");
-            System.out.println(lname);
             phone = request.getParameter("sponsorPhone");
-            System.out.println(phone);
             email = request.getParameter("sponsorEmail");
-            System.out.println(email);
             User user = new User();
             boolean validate = user.register(fname, lname, username, password, phone, email, type);
             System.out.println(validate);
