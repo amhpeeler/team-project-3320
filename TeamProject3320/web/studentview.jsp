@@ -29,11 +29,18 @@
                     <td> <c:out value="${proj.getDisciplines()}" /></td>
                     <td> <c:out value="${proj.getNumOfStudents()}" /></td>
                     <td> <c:out value="${proj.getDeliverables()}" /></td>
-                    <td><a href="projectDetails?projectId=${proj.id}">Project Details</a></td>
+                    <td><a href="application.jsp?projectId=${proj.id}" class="link">Project Details</a></td>
                 </tr>
             </c:forEach>
             </tbody>
             
         </table>
+        <div>
+            <nav>
+                <div >
+                    <a href="studentProjectsCTL">Student Projects</a>
+                </div>
+            </nav>
+        </div>
     </body>
 </html>

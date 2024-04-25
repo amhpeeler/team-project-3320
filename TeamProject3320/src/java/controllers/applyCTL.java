@@ -1,25 +1,27 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+//import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+//import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.io.IOException;
+import java.io.PrintWriter;
 import models.Project;
 
 /**
  *
- * @author celso
+ * @author Milton
  */
-@WebServlet(name = "createProjectCTL", urlPatterns = {"/createProjectCTL"})
-public class createProjectCTL extends HttpServlet {
+@WebServlet(name = "applyCTL", urlPatterns = {"/applyCTL"})
+public class applyCTL extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class createProjectCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createProjectCTL</title>");            
+            out.println("<title>Servlet applyCTL</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createProjectCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet applyCTL at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,8 +61,11 @@ public class createProjectCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String projectId = request.getParameter("projectId");
+        request.setAttribute("projectId", projectId);
+        request.getRequestDispatcher("/apply.jsp").forward(request, response); 
     }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -73,19 +78,9 @@ public class createProjectCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Project proj = new Project();
-        boolean created = proj.createProject(request.getParameter("title"), request.getParameter("type"), 
-                ((String) session.getAttribute("user")), request.getParameter("contacts"), request.getParameter("skills"),
-                request.getParameter("disciplines"), Integer.parseInt(request.getParameter("numOfStudents")), 
-                request.getParameter("description"), request.getParameter("deliverables"));
-        if(created){
-            response.sendRedirect("sponsorViewCTL");
-            
-        }else{
-            response.sendRedirect("test.html");
-        }
+        processRequest(request, response);
     }
+
 
     /**
      * Returns a short description of the servlet.
@@ -98,3 +93,4 @@ public class createProjectCTL extends HttpServlet {
     }// </editor-fold>
 
 }
+  

@@ -4,22 +4,23 @@
  */
 package controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import models.Project;
 
 /**
  *
- * @author celso
+ * @author annamariepeeler
  */
-@WebServlet(name = "createProjectCTL", urlPatterns = {"/createProjectCTL"})
-public class createProjectCTL extends HttpServlet {
+@WebServlet(name = "studentProjectDetails", urlPatterns = {"/studentProjectDetails"})
+public class studentProjectDetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +39,10 @@ public class createProjectCTL extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createProjectCTL</title>");            
+            out.println("<title>Servlet studentProjectDetails</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createProjectCTL at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet studentProjectDetails at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,8 +60,21 @@ public class createProjectCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        String projectIdString = request.getParameter("projectId");
+        int projectId = Integer.parseInt(projectIdString);
+        HttpSession session = request.getSession();
+        System.out.print("String: "+ projectIdString);
+        System.out.print("id: "+ projectId);
+
+
+        // Fetch the project details based on the ID
+        Project project = Project.viewProjectDetails(projectId);
+        
+        if (project != null) {
+            request.setAttribute("project", project);
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("studentProjectDetails.jsp");
+        rd.forward(request, response);    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -73,18 +87,7 @@ public class createProjectCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Project proj = new Project();
-        boolean created = proj.createProject(request.getParameter("title"), request.getParameter("type"), 
-                ((String) session.getAttribute("user")), request.getParameter("contacts"), request.getParameter("skills"),
-                request.getParameter("disciplines"), Integer.parseInt(request.getParameter("numOfStudents")), 
-                request.getParameter("description"), request.getParameter("deliverables"));
-        if(created){
-            response.sendRedirect("sponsorViewCTL");
-            
-        }else{
-            response.sendRedirect("test.html");
-        }
+        processRequest(request, response);
     }
 
     /**
