@@ -15,8 +15,10 @@
         <h1>Project Application: ${param.projectTitle}</h1>
         <form action="applyCTL" method="post">
         <input type="hidden" name="projectId" value="${param.projectId}">
+        <!--Textarea for username -->
         <label for="username">Enter your username:</label><br>
         <textarea id="username" name="username" rows="1" cols="50"></textarea><br> 
+        <!--Textarea for comment -->
         <label for="comment">Enter your comment:</label><br>
         <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
         <input type="submit" value="Apply">
