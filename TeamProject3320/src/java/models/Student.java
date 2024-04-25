@@ -34,20 +34,35 @@ public class Student extends User {
 	public void applyForProject(String studentID, String projectID, String comment) {
             PreparedStatement stmt = null;
             try {
+                //Inserts the user input from the textareas in application.jsp
                 conn = OracleConnection.getConnection();
                 String sql = "INSERT INTO Application (studentID, projectID, comments) VALUES (?, ?, ?)";
-                stmt = conn.prepareStatement(sql);
+                stmt = conn.prepareStatement(sql); 
+                //Sets the String the int Statmentment
                 stmt.setString(1, studentID);
                 stmt.setString(2, projectID);
                 stmt.setString(3, comment);
+                //Executes the update
                 stmt.executeUpdate();
             }catch(Exception exp){
                     exp.printStackTrace();
-                }finally{
-                    conn = null;
-                    OracleConnection.closeConnection();
-                }           
-}
+            }finally{
+                try {
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (conn != null) {
+		try {
+                    conn.close();
+		} catch (Exception e) {
+                    e.printStackTrace();
+		}
+            }
+        }           
+    }
 
 	public void viewContsnt() {
 		// TODO - implement Student.viewContsnt

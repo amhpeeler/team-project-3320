@@ -4,17 +4,14 @@
  */
 package controllers;
 
-//import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
-import models.Project;
+import models.Student;
 
 /**
  *
@@ -61,9 +58,7 @@ public class applyCTL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String projectId = request.getParameter("projectId");
-        request.setAttribute("projectId", projectId);
-        request.getRequestDispatcher("/apply.jsp").forward(request, response); 
+        processRequest(request, response);
     }
 
 
@@ -78,7 +73,19 @@ public class applyCTL extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //Retrieve the project ID, username, and comment
+        String projectId = request.getParameter("projectId");
+        String username = request.getParameter("username"); 
+        String comment = request.getParameter("comment"); 
+        
+        //Apply for the project using the student object
+        Student student = new Student();
+        
+        //Apply for the project using the student object
+        student.applyForProject(username, projectId, comment);
+        
+        //Redirects user to studentview.jsp once application is complete
+        response.sendRedirect("studentview.jsp");
     }
 
 
