@@ -69,7 +69,7 @@ public class viewMentorRequestsCTL extends HttpServlet {
         System.out.println("Response: " + requests.get(0).getResponse());
         System.out.println("Response: " + requests.get(1).getResponse());
         request.setAttribute("requests", requests);
-        RequestDispatcher rd = request.getRequestDispatcher("viewRequests.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("viewMentorRequests.jsp");
         rd.forward(request, response);
     }
 
