@@ -1,3 +1,7 @@
+/*
+Author: Jordan Ibezim
+*/
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,9 @@
     <ul>
         <% for (Project project : studentProjects) { %>
             <li>
-                <%= project.getTitle() %>
+                <strong><%= project.getTitle() %></strong>
+                <p>Description: <%= project.getDescription() %></p>
+                <p>Logged Hours: <%= project.getLoggedHours() %></p> <!-- Display logged hours -->
                 <!-- Add a form to log hours -->
                 <form action="logHours" method="post">
                     <input type="hidden" name="projectId" value="<%= project.getId() %>">
